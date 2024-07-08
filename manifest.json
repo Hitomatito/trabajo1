@@ -1,0 +1,137 @@
+{
+  "_version": "1.59.0",
+  "sap.app": {
+    "id": "git init",
+    "type": "application",
+    "i18n": "i18n/i18n.properties",
+    "applicationVersion": {
+      "version": "0.0.1"
+    },
+    "title": "{{appTitle}}",
+    "description": "{{appDescription}}",
+    "resources": "resources.json",
+    "sourceTemplate": {
+      "id": "@sap/generator-fiori:basic",
+      "version": "1.14.0",
+      "toolsId": "02adc2ae-2a60-4333-8f89-a2d0b6c19dce"
+    },
+    "dataSources": {
+      "mainService": {
+        "uri": "/V2/Northwind/Northwind.svc/",
+        "type": "OData",
+        "settings": {
+          "annotations": [],
+          "localUri": "localService/metadata.xml",
+          "odataVersion": "2.0"
+        }
+      }
+    }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "icons": {
+      "icon": "",
+      "favIcon": "",
+      "phone": "",
+      "phone@2": "",
+      "tablet": "",
+      "tablet@2": ""
+    },
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  },
+  "sap.ui5": {
+    "flexEnabled": true,
+    "dependencies": {
+      "minUI5Version": "1.125.1",
+      "libs": {
+        "sap.m": {},
+        "sap.ui.core": {},
+        "sap.f": {},
+        "sap.suite.ui.generic.template": {},
+        "sap.ui.comp": {},
+        "sap.ui.generic.app": {},
+        "sap.ui.table": {},
+        "sap.ushell": {}
+      }
+    },
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "masterdetail2.i18n.i18n"
+        }
+      },
+      "": {
+        "dataSource": "mainService",
+        "preload": true,
+        "settings": {}
+      }
+    },
+    "resources": {
+      "css": [
+        {
+          "uri": "css/style.css"
+        }
+      ]
+    },
+    "routing": {
+      "config": {
+        "routerClass": "sap.m.routing.Router",
+        "viewType": "XML",
+        "viewPath": "masterdetail2.view",
+        "controlAggregation": "beginColumnPages",
+        "controlId": "idFlexibleColumnLayout",
+        "transition": "slide",
+        "bypassed": {
+            "target": "notFound"
+        },
+        "async": true
+
+      },
+      "routes": [
+        {
+          "pattern": "",
+          "name": "master",
+          "target": "master",
+          "layout": "OneColumn"
+      },
+      {
+          "pattern": "Detail/{CustomerID}",
+          "name": "detail",
+          "target": [
+            "master",
+            "detail"
+          ],
+          "layout": "TwoColumnsMidExpanded"
+      }
+      ],
+      "targets": {
+        "master": {
+          "viewName": "Master",
+          "controlAggregation": "beginColumnPages",
+          "viewLevel": 1
+      },
+      "detail": {
+          "viewName": "Detail",
+          "controlAggregation": "midColumnPages",
+          "viewLevel": 2
+      }
+
+      }
+    },
+    "rootView": {
+      "viewName": "masterdetail2.view.App",
+      "type": "XML",
+      "async": true,
+      "id": "App"
+    }
+  }
+}
